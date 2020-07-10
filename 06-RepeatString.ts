@@ -1,4 +1,3 @@
-//*using built in repeat funciton
 function repeatString(str, num) {
     let res = '';
     for (let i = 1; i <= num; i++) {
@@ -6,6 +5,8 @@ function repeatString(str, num) {
     }
     return res;
 }
+
+//*using built in repeat funciton
 function repeatStringWrap(str, num: number): string {
     return str.repeat(num);
 }
