@@ -17,3 +17,12 @@ Typically, we can solve a tree problem recursively using a top-down approach or 
 5. return the answer if needed // answer <-- left_ans, right_ans
 
 后三步处理的顺序决定了遍历次序，不过一般处理问题涉及到 preorder，如经典最大深度问题`maximum_depth(root, depth)`
+
+## "Bottom-up" Solution
+
+"Bottom-up" is another recursive solution. In each recursive call, we will firstly call the function recursively for all the children nodes and then come up with the answer according to the returned values and the value of the current node itself. This process can be regarded as a kind of postorder traversal. Typically, a "bottom-up" recursive function bottom_up(root) will be something like this:
+
+1. return specific value for null node
+2. left_ans = bottom_up(root.left) // call function recursively for left child
+3. right_ans = bottom_up(root.right) // call function recursively for right child
+4. return answers // answer <-- left_ans, right_ans, root.val
