@@ -26,19 +26,4 @@ public class PriorityQueueTest {
     public static void kthElementPartition(int[] arr, int k) {
 
     }
-
-    private static void partition(int[] a, int l, int h) {
-        int i = l, j = h + 1;
-        while (true) {
-            while (a[++j] < a[l] && i < h) {
-
-            }
-        }
-    }
-
-    private static void swap(int[] target, int i, int j) {
-        int temp = target[i];
-        target[i] = target[j];
-        target[j] = temp;
-    }
 }

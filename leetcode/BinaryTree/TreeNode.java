@@ -1,3 +1,5 @@
+package leetcode.BinaryTree;
+
 public class TreeNode {
     int val;
     TreeNode left;
