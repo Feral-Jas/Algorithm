@@ -1,6 +1,7 @@
 package leetcode.BinaryTree;
 
 import java.util.Arrays;
+import java.util.HashMap;
 
 //* Given inorder and postorder traversal of a tree, construct the binary tree.
 
@@ -20,28 +21,35 @@ import java.util.Arrays;
 //*    15   7
 
 public class ConstructTree1 {
-    int in;
-    int post;
 
     public TreeNode buildTree(int[] inorder, int[] postorder) {
-        in = postorder.length - 1;
-        post = postorder.length - 1;
-        return build(inorder, postorder, -23123);
-    }
-
-    private TreeNode build(int[] inorder, int[] postorder, int stop) {
-        if (in < 0 || post < 0)
-            return null;
-        // finish building right
-        // to distinguish left subtree and right subtree
-        if (inorder[in] == stop) {
-            in--;
+        if (inorder == null || postorder == null) {
             return null;
         }
-        TreeNode node = new TreeNode(postorder[post]);
-        post--;
-        node.right = build(inorder, postorder, node.val);
-        node.left = build(inorder, postorder, stop);
-        return node;
+        if (inorder.length != postorder.length) {
+            throw new RuntimeException("e");
+        }
+        HashMap<Integer, Integer> inMap = new HashMap<>();
+        for (int i = 0; i < inorder.length; i++) {
+            inMap.put(inorder[i], i);
+        }
+        return buildTree(inMap, 0, inorder.length - 1, postorder, 0, postorder.length - 1);
     }
+
+    private TreeNode buildTree(HashMap<Integer, Integer> inMap, int inStart, int inEnd, int[] postorder, int postStart,
+            int postEnd) {
+        if (inStart > inEnd || postStart > postEnd) {
+            return null;
+        }
+        // 找到subtree里inorder中root的index
+        int subRoot = postorder[postEnd];
+        TreeNode root = new TreeNode(subRoot);
+        int inIndex = inMap.get(subRoot);
+        int subLeftSize = inIndex - 1 - inStart;
+        // inStart+subLeftSize = inIndex-1
+        root.left = buildTree(inMap, inStart, inIndex - 1, postorder, postStart, postStart + subLeftSize);
+        root.right = buildTree(inMap, inIndex + 1, inEnd, postorder, postStart + subLeftSize + 1, postEnd - 1);
+        return root;
+    }
+
 }

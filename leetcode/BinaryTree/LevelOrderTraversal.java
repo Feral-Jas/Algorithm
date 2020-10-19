@@ -3,7 +3,7 @@ package leetcode.BinaryTree;
 import java.util.LinkedList;
 import java.util.List;
 
-public class BFSTree {
+public class LevelOrderTraversal {
     public List<List<Integer>> levelOrder(TreeNode root) {
         List<List<Integer>> result = new LinkedList<List<Integer>>();
         levelOrderHelper(root, result, 0);
@@ -29,6 +29,6 @@ public class BFSTree {
         node.right = new TreeNode(3);
         node.left.left = new TreeNode(5);
         node.right.right = new TreeNode(7);
-        System.out.println(new BFSTree().levelOrder(node).toString());
+        System.out.println(new LevelOrderTraversal().levelOrder(node).toString());
     }
 }
