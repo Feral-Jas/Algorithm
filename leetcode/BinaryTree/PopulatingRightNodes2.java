@@ -1,34 +1,29 @@
 package leetcode.BinaryTree;
 
-import java.util.LinkedList;
-import java.util.List;
-
 public class PopulatingRightNodes2 {
     public Node Solution(Node root) {
-        if (root == null) {
-            return null;
+        Node real_root = root;
+        Node dummyNode = new Node(0);
+        Node pre = dummyNode;
+        while (root != null) {
+            if (root.left != null) {
+                pre.next = root.left;
+                pre = pre.next;
+            }
+            if (root.right != null) {
+                pre.next = root.right;
+                pre = pre.right;
+            }
+            if (root.next != null) {
+                root = root.next;
+            } else {
+                // root下移到子节点（假头的next）
+                root = dummyNode.next;
+                dummyNode.next = null;
+                pre = dummyNode;
+            }
         }
-        // 这次估计得用BFS了，因为要找到同一层下一个next
-        List<List<Integer>> headList = new LinkedList<>();
-        levelOrder(root, headList, 1);
-        System.out.println(headList.toString());
-        return root;
-    }
-
-    private void levelOrder(Node root, List<List<Integer>> headList, int level) {
-        // 先来一个笨办法，BFS遍历，构造result list 然后遍历result list构造新树
-        if (root == null) {
-            return;
-        }
-        if (level > headList.size()) {
-            List<Integer> temp = new LinkedList<>();
-            temp.add(root.val);
-            headList.add(temp);
-        } else {
-            headList.get(level - 1).add(root.val);
-        }
-        levelOrder(root.left, headList, level + 1);
-        levelOrder(root.right, headList, level + 1);
+        return real_root;
     }
 
     public static void main(String[] args) {
